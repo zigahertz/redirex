@@ -58,7 +58,8 @@ config :redirex, RedirexWeb.Endpoint,
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/redirex_web/(controllers|live|components)/.*(ex|heex)$"
+      ~r"lib/redirex_web/(controllers|live|components)/.*(ex|heex)$",
+      ~r"lib/redirex/.*(ex)$"
     ]
   ]
 

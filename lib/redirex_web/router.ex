@@ -17,11 +17,12 @@ defmodule RedirexWeb.Router do
   scope "/", RedirexWeb do
     pipe_through :browser
 
-    # get "/", PageController, :home
-    resources "/links", LinkController
+    live "/", LinkLive.Index, :new
+    live "/stats", LinkLive.Index, :index
+    live "/links/:hash/edit", LinkLive.Index, :edit
 
-    get "/", LinkController, :new
-    get "/stats", LinkController, :stats
+    live "/links/:hash", LinkLive.Show, :show
+    live "/links/:hash/show/edit", LinkLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
