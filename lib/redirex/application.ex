@@ -17,7 +17,8 @@ defmodule Redirex.Application do
       # Start Finch
       {Finch, name: Redirex.Finch},
       # Start the Endpoint (http/https)
-      RedirexWeb.Endpoint
+      RedirexWeb.Endpoint,
+      Redirex.HashCache
       # Start a worker by calling: Redirex.Worker.start_link(arg)
       # {Redirex.Worker, arg}
     ]

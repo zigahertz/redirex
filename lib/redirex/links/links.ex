@@ -35,7 +35,7 @@ defmodule Redirex.Links do
       ** (Ecto.NoResultsError)
 
   """
-  def get_link!(id), do: Repo.get!(Link, id)
+  def get_link!(hash), do: Repo.get!(Link, hash)
 
   @doc """
   Creates a link.
@@ -69,6 +69,7 @@ defmodule Redirex.Links do
 
   """
   def update_link(%Link{} = link, attrs) do
+    require IEx; IEx.pry
     link
     |> Link.changeset(attrs)
     |> IO.inspect(label: :pipe)

@@ -23,6 +23,8 @@ defmodule RedirexWeb.Router do
 
     live "/links/:hash", LinkLive.Show, :show
     live "/links/:hash/show/edit", LinkLive.Show, :edit
+
+    live "/:hash", LinkLive.Index, :redirect
   end
 
   # Other scopes may use custom stacks.

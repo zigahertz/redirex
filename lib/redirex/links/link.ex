@@ -15,7 +15,7 @@ defmodule Redirex.Links.Link do
   @doc false
   def changeset(link, attrs) do
     link
-    |> cast(attrs, [:url])
+    |> cast(attrs, [:url, :visits])
     |> validate_required([:url])
     # |> validate_format(:url)
   end
