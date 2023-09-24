@@ -17,7 +17,7 @@ defmodule Redirex.Links.Link do
     link
     |> cast(attrs, [:url, :visits])
     |> validate_required([:url])
+
     # |> validate_format(:url)
   end
-
 end

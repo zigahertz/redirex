@@ -1,5 +1,4 @@
 defmodule Redirex.Links do
-
   import Ecto.Query, warn: false
   alias Redirex.Repo
   alias Redirex.Links.Link
@@ -9,6 +8,7 @@ defmodule Redirex.Links do
   end
 
   def get_link!(hash), do: Repo.get!(Link, hash)
+  def get_link(hash), do: Repo.get(Link, hash)
 
   def create_link(attrs \\ %{}) do
     %Link{}
@@ -31,10 +31,10 @@ defmodule Redirex.Links do
   end
 
   def shortened_link(%Link{} = %{hash: hash}) do
-    URI.parse(RedirexWeb.Endpoint.url <> "/" <> hash)
+    URI.parse(RedirexWeb.Endpoint.url() <> "/" <> hash)
   end
 
   def shortened_link(%{hash: hash}) do
-    RedirexWeb.Endpoint.url <> "/" <> hash
+    RedirexWeb.Endpoint.url() <> "/" <> hash
   end
 end

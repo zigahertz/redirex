@@ -20,14 +20,9 @@ defmodule RedirexWeb.Router do
     live "/", LinkLive.Index, :new
     live "/links/:hash", LinkLive.Show, :show
     live "/stats", LinkLive.Index, :index
-    # live "/links/:hash/edit", LinkLive.Index, :edit
-
-    # live "/links/:hash/show/edit", LinkLive.Show, :edit
-
-    # live "/:hash", LinkLive.Index, :redirect
 
     get "/download", LinkController, :csv
-    get "/:hash", LinkController, :redirect
+    get "/:hash", LinkController, :index
   end
 
   # Other scopes may use custom stacks.

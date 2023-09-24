@@ -28,7 +28,6 @@ defmodule Redirex.HashCache do
     GenServer.cast(@name, {:clear_all})
   end
 
-
   ## Server API
 
   def init(:ok), do: {:ok, %{}}
