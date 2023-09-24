@@ -16,7 +16,3 @@ The [stats route](https://zz-redirex.fly.dev/stats) displays a table of all URLs
 visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 ## TODO
-
-validate URL
-fix tests
-unique error

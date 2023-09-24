@@ -49,5 +49,4 @@ defmodule RedirexWeb.LinkLive.Index do
 
     {:noreply, stream_delete(socket, :links, link)}
   end
-
 end

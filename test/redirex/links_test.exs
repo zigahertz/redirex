@@ -2,6 +2,7 @@ defmodule Redirex.LinksTest do
   use Redirex.DataCase
 
   alias Redirex.Links
+
   describe "links" do
     alias Redirex.Links.Link
 

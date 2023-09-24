@@ -19,7 +19,9 @@ defmodule RedirexWeb.LinkController do
       %Links.Link{} = link ->
         Links.update_link(link, %{visits: link.visits + 1})
         redirect(conn, external: Map.get(link, :url))
-      nil -> {:error, :not_found}
+
+      nil ->
+        {:error, :not_found}
     end
   end
 
