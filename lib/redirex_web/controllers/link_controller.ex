@@ -1,6 +1,6 @@
 defmodule RedirexWeb.LinkController do
   use RedirexWeb, :controller
-  alias Redirex.{Links, HashCache}
+  alias Redirex.Links
 
   action_fallback RedirexWeb.FallbackController
 
@@ -15,14 +15,10 @@ defmodule RedirexWeb.LinkController do
   end
 
   def index(conn, %{"hash" => hash}) do
-    # case get_cached_url(hash) do
-    #   nil -> socket
-    #   url -> redirect(socket, external: url)
-    # end
-    with %Links.Link{} = link <- get_link(hash),
-         {:ok, _} <- Links.update_link(link, %{visits: link.visits + 1}) do
-      redirect(conn, external: Map.get(link, :url))
-    else
+    case get_link(hash) do
+      %Links.Link{} = link ->
+        Links.update_link(link, %{visits: link.visits + 1})
+        redirect(conn, external: Map.get(link, :url))
       nil -> {:error, :not_found}
     end
   end
@@ -44,21 +40,5 @@ defmodule RedirexWeb.LinkController do
       |> Map.replace(:hash, Links.shortened_link(link))
 
     [data | acc]
-  end
-
-  defp get_cached_url(hash) do
-    with false <- HashCache.exists?(hash),
-         link <- Links.get_link!(hash),
-         url <- Map.get(link, :url),
-         :ok <- HashCache.write(hash, url) do
-      url
-    else
-      true ->
-        {:ok, url} = HashCache.read(hash)
-        url
-
-      nil ->
-        :error
-    end
   end
 end

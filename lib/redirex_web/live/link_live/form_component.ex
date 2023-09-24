@@ -19,7 +19,7 @@ defmodule RedirexWeb.LinkLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
-        <.input field={@form[:url]} type="url" label="URL" phx-debounce="1000" />
+        <.input field={@form[:url]} type="text" label="URL" phx-debounce="1000" />
         <:actions>
           <.button phx-disable-with="Saving...">Save Link</.button>
         </:actions>
@@ -51,21 +51,6 @@ defmodule RedirexWeb.LinkLive.FormComponent do
   def handle_event("save", %{"link" => link_params}, socket) do
     save_link(socket, socket.assigns.action, link_params)
   end
-
-  # defp save_link(socket, :edit, link_params) do
-  #   case Links.update_link(socket.assigns.link, link_params) do
-  #     {:ok, link} ->
-  #       notify_parent({:saved, link})
-
-  #       {:noreply,
-  #        socket
-  #        |> put_flash(:info, "Link updated successfully")
-  #        |> push_patch(to: socket.assigns.patch)}
-
-  #     {:error, %Ecto.Changeset{} = changeset} ->
-  #       {:noreply, assign_form(socket, changeset)}
-  #   end
-  # end
 
   defp save_link(socket, :new, link_params) do
     case Links.create_link(link_params) do

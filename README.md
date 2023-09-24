@@ -1,22 +1,22 @@
 # Redirex
 
-To start your Phoenix server:
+# production application
+
+Visit the app at [https://zz-redirex.fly.dev/](https://zz-redirex.fly.dev/)
+
+The home page is a form to enter a URL for shortening.
+
+The [stats route](https://zz-redirex.fly.dev/stats) displays a table of all URLs along with the shortened version of the URL and visit count (each time a user enters the shortened URL and visits ).
+
+# local development
 
 - Run `mix setup` to install and setup dependencies
-- Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+- Start Phoenix endpoint with `iex -S mix phx.server`
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+## TODO
 
-## Learn more
-
-- Official website: https://www.phoenixframework.org/
-- Guides: https://hexdocs.pm/phoenix/overview.html
-- Docs: https://hexdocs.pm/phoenix
-- Forum: https://elixirforum.com/c/phoenix-forum
-- Source: https://github.com/phoenixframework/phoenix
-
-CSV
-check concurrency
-increment count
+validate URL
+fix tests
+unique error
