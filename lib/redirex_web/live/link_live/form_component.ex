@@ -60,7 +60,7 @@ defmodule RedirexWeb.LinkLive.FormComponent do
         {:noreply,
          socket
          |> put_flash(:info, "Link created successfully")
-         |> push_navigate(to: ~p"/links/#{link}")}
+         |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign_form(socket, changeset)}

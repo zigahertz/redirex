@@ -10,11 +10,7 @@ defmodule Redirex.LinksFixtures do
   def link_fixture(attrs \\ %{}) do
     {:ok, link} =
       attrs
-      |> Enum.into(%{
-        hash: "some hash",
-        url: "some url",
-        visits: 42
-      })
+      |> Enum.into(%{url: "http://dog.com"})
       |> Redirex.Links.create_link()
 
     link
