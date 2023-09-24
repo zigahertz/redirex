@@ -31,8 +31,23 @@ defmodule RedirexWeb.LinkLive.Index do
     |> assign(:link, nil)
   end
 
+  defp apply_action(socket, :delete, _params) do
+    socket
+    |> assign(:page_title, "Listing Links")
+    |> assign(:link, nil)
+  end
+
   @impl true
   def handle_info({RedirexWeb.LinkLive.FormComponent, {:saved, link}}, socket) do
     {:noreply, stream_insert(socket, :links, link)}
   end
+
+  @impl true
+  def handle_event("delete", %{"hash" => hash}, socket) do
+    link = Links.get_link!(hash)
+    {:ok, _} = Links.delete_link(link)
+
+    {:noreply, stream_delete(socket, :links, link)}
+  end
+
 end
