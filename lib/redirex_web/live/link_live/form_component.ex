@@ -20,7 +20,6 @@ defmodule RedirexWeb.LinkLive.FormComponent do
         phx-submit="save"
       >
         <.input field={@form[:url]} type="url" label="URL" phx-debounce="1000" />
-        <%!-- <.input field={@form[:color]} type="text" label="Color" /> --%>
         <:actions>
           <.button phx-disable-with="Saving...">Save Link</.button>
         </:actions>
@@ -53,20 +52,20 @@ defmodule RedirexWeb.LinkLive.FormComponent do
     save_link(socket, socket.assigns.action, link_params)
   end
 
-  defp save_link(socket, :edit, link_params) do
-    case Links.update_link(socket.assigns.link, link_params) do
-      {:ok, link} ->
-        notify_parent({:saved, link})
+  # defp save_link(socket, :edit, link_params) do
+  #   case Links.update_link(socket.assigns.link, link_params) do
+  #     {:ok, link} ->
+  #       notify_parent({:saved, link})
 
-        {:noreply,
-         socket
-         |> put_flash(:info, "Link updated successfully")
-         |> push_patch(to: socket.assigns.patch)}
+  #       {:noreply,
+  #        socket
+  #        |> put_flash(:info, "Link updated successfully")
+  #        |> push_patch(to: socket.assigns.patch)}
 
-      {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, assign_form(socket, changeset)}
-    end
-  end
+  #     {:error, %Ecto.Changeset{} = changeset} ->
+  #       {:noreply, assign_form(socket, changeset)}
+  #   end
+  # end
 
   defp save_link(socket, :new, link_params) do
     case Links.create_link(link_params) do
@@ -76,7 +75,7 @@ defmodule RedirexWeb.LinkLive.FormComponent do
         {:noreply,
          socket
          |> put_flash(:info, "Link created successfully")
-         |> push_patch(to: socket.assigns.patch)}
+         |> push_navigate(to: ~p"/links/#{link}")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign_form(socket, changeset)}

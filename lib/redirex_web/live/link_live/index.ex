@@ -9,15 +9,19 @@ defmodule RedirexWeb.LinkLive.Index do
     {
       :ok,
       socket
-      |> attach_hook(:count, :handle_params, fn
-        %{"hash" => hash}, _, socket ->
-          link = Links.get_link!(hash)
-          Links.update_link(link, %{count: 2})
-          {:cont, socket}
+      # |> attach_hook(:count, :handle_params, fn
+      #   %{"hash" => hash}, p, socket ->
 
-        # _event, _params, socket ->
-        #   {:cont, socket}
-      end)
+      #     require IEx; IEx.pry
+
+      #     hash
+      #     |> get_link()
+      #     |> then(&Links.update_link(&1, %{visits: &1.visits + 1}))
+
+      #     {:cont, socket}
+
+      #   _, _, socket -> {:cont, socket}
+      # end)
       |> stream_configure(:links, dom_id: &(&1.hash))
       |> stream(:links, Links.list_links())
     }
@@ -25,24 +29,23 @@ defmodule RedirexWeb.LinkLive.Index do
 
   @impl true
   def handle_params(params, _url, socket) do
-    IO.inspect(socket.assigns.live_action, label: :socket)
-    IO.inspect(params, label: :params)
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
   defp apply_action(socket, :redirect, %{"hash" => hash}) do
-    # redirect(socket, external: Map.get(Links.get_link!(hash), :url) )
-    case get_cached_url(hash) do
-      nil -> socket
-      url -> redirect(socket, external: url)
-    end
+    require IEx; IEx.pry
+    redirect(socket, external: Map.get(Links.get_link!(hash), :url) )
+    # case get_cached_url(hash) do
+    #   nil -> socket
+    #   url -> redirect(socket, external: url)
+    # end
   end
 
-  defp apply_action(socket, :edit, %{"hash" => hash}) do
-    socket
-    |> assign(:page_title, "Edit Link")
-    |> assign(:link, Links.get_link!(hash))
-  end
+  # defp apply_action(socket, :edit, %{"hash" => hash}) do
+  #   socket
+  #   |> assign(:page_title, "Edit Link")
+  #   |> assign(:link, Links.get_link!(hash))
+  # end
 
   defp apply_action(socket, :new, _params) do
     socket
@@ -61,13 +64,19 @@ defmodule RedirexWeb.LinkLive.Index do
     {:noreply, stream_insert(socket, :links, link)}
   end
 
-  @impl true
-  def handle_event("delete", %{"hash" => hash}, socket) do
-    link = Links.get_link!(hash)
-    {:ok, _} = Links.delete_link(link)
+  # @impl true
+  # def handle_event("download", _, socket) do
+  #   # data = csv_data(Links.list_links())
 
-    {:noreply, stream_delete(socket, :links, link)}
-  end
+
+  #   {:noreply, push_event(socket, )
+  #   socket
+  #   |>
+  #   }
+  # end
+
+
+  defp get_link(hash), do: Links.get_link!(hash)
 
   defp get_cached_url(hash) do
     with false <- HashCache.exists?(hash),
@@ -83,6 +92,4 @@ defmodule RedirexWeb.LinkLive.Index do
     end
     # Links.update_link(link, %{count: Map.get(link, :count) + 1})
   end
-
-  def gen_url(%{hash: hash}), do: URI.parse(RedirexWeb.Endpoint.url <> "/" <> hash)
 end

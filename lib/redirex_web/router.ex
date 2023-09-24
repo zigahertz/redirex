@@ -18,13 +18,16 @@ defmodule RedirexWeb.Router do
     pipe_through :browser
 
     live "/", LinkLive.Index, :new
-    live "/stats", LinkLive.Index, :index
-    live "/links/:hash/edit", LinkLive.Index, :edit
-
     live "/links/:hash", LinkLive.Show, :show
-    live "/links/:hash/show/edit", LinkLive.Show, :edit
+    live "/stats", LinkLive.Index, :index
+    # live "/links/:hash/edit", LinkLive.Index, :edit
 
-    live "/:hash", LinkLive.Index, :redirect
+    # live "/links/:hash/show/edit", LinkLive.Show, :edit
+
+    # live "/:hash", LinkLive.Index, :redirect
+
+    get "/download", LinkController, :csv
+    get "/:hash", LinkController, :redirect
   end
 
   # Other scopes may use custom stacks.

@@ -4,6 +4,12 @@
     <.link patch={~p"/"}>
       <.button>New Link</.button>
     </.link>
+    
+    <.button>
+      <a href="/download" target="_blank" download>
+        Export CSV
+      </a>
+    </.button>
   </:actions>
 </.header>
 
@@ -15,7 +21,7 @@
   <:col :let={{_id, link}} label="Original URL"><%= link.url %></:col>
   <:col :let={{_id, link}} label="Short URL">
     <.link>
-      <%= RedirexWeb.Endpoint.url <> "/" <> link.hash %>
+      <%= Links.shortened_link(link) %>
     </.link>
   </:col>
   <:col :let={{_id, link}} label="Visit Count"><%= link.visits %></:col>
@@ -34,7 +40,7 @@
   </:action>
 </.table>
 
-<.modal :if={@live_action in [:new, :edit]} id="link-modal" show on_cancel={JS.patch(~p"/stats")}>
+<.modal :if={@live_action in [:new]} id="link-modal" show on_cancel={JS.patch(~p"/stats")}>
   <.live_component
     module={RedirexWeb.LinkLive.FormComponent}
     id={@link.hash || :new}
