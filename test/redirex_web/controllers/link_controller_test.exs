@@ -1,4 +1,4 @@
-defmodule RedirexWeb.CsvControllerTest do
+defmodule RedirexWeb.LinkControllerTest do
   use RedirexWeb.ConnCase
   import Redirex.LinksFixtures
 
