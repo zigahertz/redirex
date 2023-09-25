@@ -17,14 +17,17 @@
   id="links"
   rows={@streams.links}
   row_click={fn {_id, link} -> JS.navigate(~p"/links/#{link}") end}
+  col_click={fn col -> JS.push("sort", value: %{col: col.id}) end}
 >
-  <:col :let={{_id, link}} label="Original URL"><%= link.url %></:col>
-  <:col :let={{_id, link}} label="Short URL">
+  <:col :let={{_id, link}} label="Original URL" id="url"><%= link.url %></:col>
+  <:col :let={{_id, link}} label="Short URL" id="hash">
     <.link>
       <%= Links.shortened_link(link) %>
     </.link>
   </:col>
-  <:col :let={{_id, link}} label="Visit Count"><%= link.visits %></:col>
+  <:col :let={{_id, link}} label="Visit Count" id="visits"><%= link.visits %></:col>
+  <%!-- <:col :let={{_id, link}} label="Date Added" id="inserted_at"><%= link.inserted_at %></:col> --%>
+  
   <:action :let={{_id, link}}>
     <div class="sr-only">
       <.link navigate={~p"/links/#{link}"}>Show</.link>

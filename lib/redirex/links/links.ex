@@ -3,8 +3,14 @@ defmodule Redirex.Links do
   alias Redirex.Repo
   alias Redirex.Links.Link
 
-  def list_links do
+  def list_links() do
     Repo.all(Link)
+  end
+
+  def list_links(order_by) do
+    Link
+    |> from(order_by: ^order_by)
+    |> Repo.all()
   end
 
   def get_link!(hash), do: Repo.get!(Link, hash)

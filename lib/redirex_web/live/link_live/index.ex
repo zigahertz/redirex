@@ -11,6 +11,7 @@ defmodule RedirexWeb.LinkLive.Index do
       socket
       |> stream_configure(:links, dom_id: & &1.hash)
       |> stream(:links, Links.list_links())
+      |> assign(:sort, [asc: nil, desc: nil])
     }
   end
 
@@ -43,4 +44,5 @@ defmodule RedirexWeb.LinkLive.Index do
 
     {:noreply, stream_delete(socket, :links, link)}
   end
+
 end
