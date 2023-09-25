@@ -4,7 +4,7 @@
 
 Visit the app at [https://zz-redirex.fly.dev/](https://zz-redirex.fly.dev/)
 
-The home page is a form to enter a URL for shortening.
+A form is displayed where you can shorten any valid URL.
 
 The [stats route](https://zz-redirex.fly.dev/stats) displays a table of all URLs along with the shortened version of the URL and visit count.
 
