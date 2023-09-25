@@ -13,7 +13,6 @@ defmodule RedirexWeb.LinkLiveTest do
   end
 
   describe "Index" do
-    @describetag :this
     setup [:create_link]
 
     test "lists all links", %{conn: conn, link: link} do
